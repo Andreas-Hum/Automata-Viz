@@ -1,0 +1,21 @@
+BEGIN
+
+def g {
+    START -> q;
+    ACCEPT -> [q];
+
+    STATE q -> {
+        1 -> [SELF];
+        2 -> [q];
+    };
+
+    STATE q2 -> {
+        2 -> [q,SELF];
+    };
+}
+
+END
+
+
+
+

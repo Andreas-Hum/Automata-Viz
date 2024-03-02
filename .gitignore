@@ -1,0 +1,35 @@
+# .gitignore
+
+# Ignore Node.js build artifacts
+node_modules/
+dist/
+
+# Ignore TypeScript type definitions
+*.d.ts
+
+# Ignore environment variables
+.env
+
+# Ignore logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore IDE and editor files
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.idea/
+*.vs/
+*.sln
+*.sln.docstates
+*.user
+*.userosscache
+*.suo
+*.pidb
+*.booproj
+*.dbmdl
+*.jfm
+*.pfx
+*.publishsettings
+orleans.codegen.cs

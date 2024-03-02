@@ -1,0 +1,17 @@
+BEGIN
+
+def a {
+
+    STATE q -> {
+        d -> [SELF,t];
+        s -> [t,SELF];
+    };
+    STATE t -> {
+        1 -> [SELF,q];
+    };
+    START  -> q;
+    ACCEPT -> [q,t];
+};
+
+
+END

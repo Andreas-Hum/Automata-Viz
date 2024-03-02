@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/theme/monokai.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/addon/hint/show-hint.min.css" />
+    <style>
+
+    </style>
+</head>
+<body>
+    <textarea id="myCodeMirror"></textarea>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/addon/hint/show-hint.min.js"></script>
+    <script>
+        CodeMirror.commands.autocomplete = function (cm) {
+            cm.showHint({ hint: CodeMirror.hint.anyword, hintWords: ["STATE", "START"] });
+        };
+
+        CodeMirror.defineMode("myLanguage", function () {
+            return {
+                startState: function () {
+                    return { justSeenDef: false };
+                },
+                token: function (stream, state) {
+                    if (stream.eatSpace()) return null; 
+                    if (state.justSeenDef) {
+                        stream.eatWhile(/\w/);  
+                        state.justSeenDef = false;  
+                        return "variable";  
+                    }
+                    if (stream.match("BEGIN")) {
+                        return "keyword";
+                    }
+                    if (stream.match("END")) {
+                        return "keyword";
+                    }
+                    if (stream.match("def")) {
+                        state.justSeenDef = true; 
+                        return "def";
+                    }
+                    if (stream.match("START")) {
+                        return "atom";
+                    }
+                    if (stream.match("ACCEPT")) {
+                        return "atom";
+                    }
+                    if (stream.match("STATE")) {
+                        return "variable-2";
+                    }
+                    if (stream.match(/^SELF/, true)) {
+                        return "variable-3";
+                    }
+                    stream.next();  
+                }
+            };
+        });
+
+        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('myCodeMirror'), {
+            lineNumbers: true,
+            mode: "myLanguage",
+            theme: "monokai",
+            extraKeys: { "Ctrl-Space": "autocomplete" }
+        });
+    </script>
+</body>
+</html>
