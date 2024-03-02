@@ -26,7 +26,6 @@ export function tokenizeFile(stream: string) {
         col = lines.length > 1 ? lines[lines.length - 1].length : col + lines[0].length;
     }
 
-    // console.log(tokens)
     return tokens;
 }
 

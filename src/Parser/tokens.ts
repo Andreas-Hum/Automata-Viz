@@ -57,7 +57,6 @@ export class Token {
 
         let type = lookup[value];
 
-        // If the token type is not found in the lookup object, check if it's a valid identifier
         if (type === undefined) {
             if (/^[a-zA-Z0-9_][a-zA-Z0-9_]*$/.test(value)) {
                 type = TOKENS_TYPE.IDENTIFIER;
